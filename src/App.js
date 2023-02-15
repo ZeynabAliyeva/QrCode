@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import { QRCodeSVG } from 'qrcode.react';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [inputValue ,setInputValue]=useState('');
+  const [click, setClick] =useState('')
+
+  const onInputChange = (e) =>{
+    setInputValue(e.target.value);
+};
+console.log(inputValue);
+
+  const handleSubmit = (e)=>{
+    e.preventDefault()
+
+    setClick(inputValue);
+    setInputValue('')
+  
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <h1>Qr Code Generator</h1>
+    <form onSubmit={handleSubmit}>
+    <input value={inputValue} onChange={onInputChange}/>
+    <button>Generate QR</button><br/>
+    </form>
+    <QRCodeSVG value={click}/>
+    </>
   );
 }
 
